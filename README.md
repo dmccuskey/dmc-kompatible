@@ -91,6 +91,15 @@ If the console shows `module 'dmc_corona.dmc_kompatible' not found` instead, `dm
 
 To update, copy `dmc_corona_boot.lua` and `dmc_corona/` again from the newer version. Keep your own `dmc_corona.cfg` if you have changed it.
 
+## Converting an App
+
+Two ways to bring a whole Graphics 1.0 app across:
+
+1. **Quickest: `MAKE_GLOBAL`.** Set it in `dmc_corona.cfg` (see [Configuration](#configuration)) and require dmc-kompatible once, at the top of `main.lua`. Every file then gets dmc-kompatible's `display` and `native`. Whether it works depends on the other libraries in the app: one that expects Solar2D's own 0-1 colors gets nearly black ones.
+2. **File by file.** Put the `require` line at the top of each file that uses Graphics 1.0 code. To find them, run the app, add the line to the file named in the first error, and run it again, until the errors stop.
+
+The second way leaves every other file and library on Solar2D's own `display` and `native`. To take only one of the two tables, leave the other out: `local display = require( 'dmc_corona.dmc_kompatible' )()`.
+
 ## API
 
 ```lua
